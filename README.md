@@ -21,19 +21,21 @@
 ## 2. Repository Structure
 
 ```
-README.md                       # This file
-requirements.txt                # Python dependencies needed to run the scripts
+README.md                        # This file
+requirements.txt                 # Python dependencies needed to run the scripts
 outputs/
-    recall_graph.png            # Recall curve produced by our reproduction
+    recall_graph.png             # Recall curve produced by our reproduction, from graph_recall.py
+    threshold_recalls.csv        # CSV file containing recall values for thresholds, from BugLearnAndValidate.py
+    training_prediction_time.txt # Contains how long (min:sec) extracting pairs, training, and prediction took, from BugLearnAndValidate.py
 replication_scripts/
-    BugLearnAndValidate.py      # Modified version of the original script (see notes below)
-    graph_recall.py             # Plots recall curve from CSV values saved by BugLearnAndValidate.py
+    BugLearnAndValidate.py       # Modified version of the original script (see notes below)
+    graph_recall.py              # Plots recall curve from CSV values saved by BugLearnAndValidate.py
 ```
 
 **Note on `BugLearnAndValidate.py`**: This is a modified version of the original script from the DeepBugs repository. The following changes were made:
 - Fixed several bugs present in the original script
 - Added timing instrumentation that prints elapsed time for each phase to the console and saves it to a text file
-- Added logic to save threshold and recall values to a CSV file, which is consumed by `graph_recall.py` to generate the recall curve
+- Added logic to save threshold and recall values to a CSV file, which is consumed by `graph_recall.py` to generate the recall curve, and save training/prediction component timings to `outputs/training_prediction_time.txt`
 
 **Note on data**: The full js150k corpus (150,000 JavaScript files) used for training and validation is not included in this repository due to its size. See the setup instructions below for how to download it.
 
@@ -41,9 +43,38 @@ replication_scripts/
 
 ## 3. Setup Instructions
 
-- **Prerequisites**: Required software, tools, and versions
+- **Prerequisites**: Python 3.13 (tensorflow doesn't yet support 3.14 or 3.15), 
  
-- **Installation Steps**: Step-by-step instructions to set up the environment
+- **Installation Steps**:
+
+    - Clone [michaelpradel/DeepBugs](https://github.com/michaelpradel/DeepBugs)
+        ```bash
+        $ cd ..
+        $ git clone https://github.com/michaelpradel/DeepBugs.git
+        $ cd DeepBugs
+        ```
+
+    - Obtain dataset
+        - Download the full 150k JS dataset from https://www.sri.inf.ethz.ch/js150
+        - Extract it, then extract the `data.tar.gz` archive inside it, and copy the `programs_all` folder to the `data/js/` folder of the cloned DeepBugs repo. You should now end up with a populated `programs_all` folder (`data/js/programs_all/0a-`, and so on).
+
+    - Create an `outputs` directory, and overwrite the BugLearnAndValidate.py file in the repo with the version from this repo (`replication_scripts/BugLearnAndValidate.py`).
+
+    - Follow the instructions in the DeepBugs readme to train and validate the model
+
+    - Copy the `outputs` folder to this repo
+
+    - Setup venv and dependencies
+        ```bash
+        $ python3 -m venv .venv
+        $ source .venv/bin/activate
+        $ pip3 -r requirements.txt
+        ```
+    
+    - Run `graph_recall.py` to plot the recall graph, and automatically save it to `outputs/recall_graph.png`.
+        ```bash
+        python3 replication_scripts/graph_recall.py
+        ```
 
 ---
 
