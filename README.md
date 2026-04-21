@@ -96,6 +96,8 @@ Your README will be evaluated based on the following aspects (Total: 40 points):
 
 ## Acknowledgement
 
-This guideline was developed with the assistance of [Cursor](https://www.cursor.com/), an AI-powered code editor. This tool was used to:
+The template this README was based on was developed with the assistance of [Cursor](https://www.cursor.com/), an AI-powered code editor. This tool was used to:
 
 - Draft and refine this documentation iteratively
+
+No LLM or generative AI tool was used otherwise.
