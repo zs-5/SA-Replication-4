@@ -62,14 +62,8 @@ notes/                           # Notes taken during replication
 ## 3. Setup Instructions
 
 - **Prerequisites**: Required software, tools, and versions
-  - OS requirements
-  - Programming language versions (Python, R, etc.)
-  - Required packages/libraries and versions
-  - Any other dependencies
+ 
 - **Installation Steps**: Step-by-step instructions to set up the environment
-  - How to install dependencies
-  - How to configure paths or settings
-  - Any environment variables needed
 
 ---
 
