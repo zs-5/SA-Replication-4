@@ -55,11 +55,6 @@ parser.add_argument(
 Anomaly = namedtuple("Anomaly", ["message", "score"])
 
 
-# Z
-with open("outputs/training_prediction_time.txt", "a") as file:
-    file.write(f"\n# New run at: {time.ctime()}\n")
-
-
 def prepare_xy_pairs(gen_negatives, data_paths, learning_data):
     time_extracting_pairs_start = time.time() # Z: For timing how long it took to extract xy pairs
     xs = []
@@ -138,6 +133,10 @@ if __name__ == '__main__':
     # elif pattern == "MissingArg":
     ##    learning_data = LearningDataMissingArg.LearningData()
 
+    # Z
+    with open("outputs/training_prediction_time.txt", "a") as file:
+        file.write(f"\n# New run at: {time.ctime()}\n\nTraining:\n")
+
     print("Statistics on training data:")
     learning_data.pre_scan(training_data_paths, validation_data_paths)
 
@@ -177,7 +176,7 @@ if __name__ == '__main__':
     time_learning = round(time_learning_done - time_start)
     print("Time for learning (seconds):", time_learning)
     with open("outputs/training_prediction_time.txt", "a") as file:
-        file.write(f"- Learning: {time_learning//60}:{time_learning%60:02d}\n")
+        file.write(f"- Learning: {time_learning//60}:{time_learning%60:02d}\nValidation:\n")
 
     # prepare validation data
     print("Preparing xy pairs for validation data:")
@@ -251,8 +250,12 @@ if __name__ == '__main__':
     f_inspect.close()
 
     time_prediction_done = time.time()
-    print("Time for prediction (seconds): " +
-          str(round(time_prediction_done - time_learning_done)))
+
+    # Z
+    time_prediction = round(time_prediction_done - time_learning_done)
+    print("Time for prediction (seconds):", time_prediction)
+    with open("outputs/training_prediction_time.txt", "a") as file:
+        file.write(f"- Prediction: {time_prediction//60}:{time_prediction%60:02d}\n\n")
 
     print()
 
