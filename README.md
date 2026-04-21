@@ -22,40 +22,20 @@
 
 ```
 README.md                        # This file
-datasets/                        # Data used in the replication
-    file_list_train.txt          # List of 100,000 JS files used for training
-    file_list_val.txt            # List of 50,000 JS files used for validation
-    download_instructions.md     # Instructions for downloading the full js150k corpus
-    real_world_files/            # The 10 JS files used for the inference experiment
-replication_scripts/             # Scripts used in this replication
-    BugLearnAndValidate.py       # Modified version of the original script (see notes below)
-    extract_calls.sh             # Shell script to run JS call-site extraction
-    train.sh                     # Shell script to run embedding training + classifier training
-    predict.sh                   # Shell script to run inference on new files
-    plot_recall.py               # Script to plot recall curve from saved CSV values
+requirements.txt                 # Python dependencies needed to run the scripts
 outputs/                         # Generated results
-    embeddings/                  # Trained Word2Vec embeddings
-    model/                       # Trained classifier weights
-    predictions/                 # Raw model output (probabilities per call site)
-    accuracy_results.txt         # Accuracy with random and learned embeddings
-    timing_results.txt           # Timing results for training and prediction phases
-    recall_values.csv            # Threshold and recall values used to generate recall curve
-    recall_graph.png             # Recall curve (our reproduction)
-    recall_graph_og.png          # Recall curve from original paper (for comparison)
-    real_world_warnings.csv      # Warnings produced on the 10 real-world JS files
-logs/                            # Console output and run logs
-    extraction_log.txt           # Output from call-site extraction step
-    training_log.txt             # Output from embedding + classifier training
-    prediction_log.txt           # Output from inference run
-notes/                           # Notes taken during replication
-    discrepancies.md             # Notes on any differences observed vs. original paper
-    manual_analysis.md           # Notes from manually analyzing the 10 real-world warnings
+recall_graph.png             # Recall curve produced by our reproduction
+replication_scripts/             # Scripts used in this replication
+BugLearnAndValidate.py       # Modified version of the original script (see notes below)
+graph_recall.py              # Script to plot recall curve from CSV values saved by BugLearnAndValidate.py
 ```
 
 **Note on `BugLearnAndValidate.py`**: This is a modified version of the original script from the DeepBugs repository. The following changes were made:
 - Fixed several bugs present in the original script
-- Added timing instrumentation that prints elapsed time for each phase to the console and saves it to `outputs/timing_results.txt`
-- Added logic to save threshold and recall values to `outputs/recall_values.csv`, which is consumed by `plot_recall.py` to generate the recall curve
+- Added timing instrumentation that prints elapsed time for each phase to the console and saves it to a text file
+- Added logic to save threshold and recall values to a CSV file, which is consumed by `graph_recall.py` to generate the recall curve
+
+**Note on data**: The full js150k corpus (150,000 JavaScript files) used for training and validation is not included in this repository due to its size. See the setup instructions below for how to download it.
 
 ---
 
