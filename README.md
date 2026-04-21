@@ -21,13 +21,13 @@
 ## 2. Repository Structure
 
 ```
-README.md                        # This file
-requirements.txt                 # Python dependencies needed to run the scripts
-outputs/                         # Generated results
-recall_graph.png             # Recall curve produced by our reproduction
-replication_scripts/             # Scripts used in this replication
-BugLearnAndValidate.py       # Modified version of the original script (see notes below)
-graph_recall.py              # Script to plot recall curve from CSV values saved by BugLearnAndValidate.py
+README.md                       # This file
+requirements.txt                # Python dependencies needed to run the scripts
+outputs/
+    recall_graph.png            # Recall curve produced by our reproduction
+replication_scripts/
+    BugLearnAndValidate.py      # Modified version of the original script (see notes below)
+    graph_recall.py             # Plots recall curve from CSV values saved by BugLearnAndValidate.py
 ```
 
 **Note on `BugLearnAndValidate.py`**: This is a modified version of the original script from the DeepBugs repository. The following changes were made:
